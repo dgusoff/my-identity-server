@@ -22,6 +22,27 @@ namespace identity_server
 
         public static IEnumerable<Client> Clients =>
             new Client[] 
-            { };
+            {
+                new Client
+                {
+                    ClientName = "My Client",
+                    ClientId = "myclientid",
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RedirectUris = new List<string>()
+                    {
+                        "https://localhost:44356/signin-oidc"
+                    },
+                    AllowedScopes =
+                    {
+                        IdentityServer4.IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServer4.IdentityServerConstants.StandardScopes.Profile
+                    },
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    }
+                }
+            };
     }
 }
